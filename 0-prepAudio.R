@@ -15,15 +15,15 @@ if(!dir.exists("mp3/")){
 
 #### Download HQ male song recordings > 30s long from Europe ####
 query <- querxc("type:song type:male len_gt:30 q_gt:C area:europe")
-query$species <- with(query, paste(Genus, Specific_epithet))
+query$Species <- with(query, paste(Genus, Specific_epithet))
 # Select top 50 most abundant bird species
-speciesCount <- sort(table(query$species), decreasing = T)
+speciesCount <- sort(table(query$Species), decreasing = T)
 topSpecies <- names(speciesCount)[1:50]
-query <- query[query$species %in% topSpecies, ]
+query <- query[query$Species %in% topSpecies, ]
 # Downsample to min size among the 50 classes
 balancedClasses <- lapply(topSpecies, function(x){
    set.seed(100)
-   sample(which(query$species == x), min(table(query$species)))
+   sample(which(query$Species == x), min(table(query$Species)))
 }) %>% unlist()
 # Subset accordingly
 query <- query[balancedClasses, ]
@@ -33,6 +33,11 @@ querxc(X = query, download = T, path = "mp3/", parallel = 8)
 #### Pre-processing ####
 # Read files
 fnames <- list.files("mp3/", full.names = T, patt = "*.mp3")
+
+# Write metadata for Kaggle dataset
+ids <- str_extract(fnames, pattern = "[0-9]{4,}")
+query$Path <- fnames[match(query$Recording_ID, ids)]
+write.csv(query, "metadata.csv")
 
 # Play random file - setWavPlayer in macOS if "permission denied"
 setWavPlayer('/usr/bin/afplay')

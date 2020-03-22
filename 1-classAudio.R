@@ -76,7 +76,7 @@ pheatmap(confMat$table, cluster_rows = F, cluster_cols = F,
          color = cols(max(confMat$table)+1))
 
 # Accuracy in validation set
-mean(predClass == trueClass) # 0.7588
+mean(predClass == trueClass) # 0.7512
 
 # Test set prediction
 predXProb <- predict(model, test$X)
@@ -93,7 +93,7 @@ pheatmap(confMatTest$table, cluster_rows = F, cluster_cols = F,
          color = cols(max(confMatTest$table)+1))
          
 # Accuracy in test set
-mean(predXClass == trueXClass) # 0.7074
+mean(predXClass == trueXClass) # 0.7299
 
 # Write sessioninfo
 writeLines(capture.output(sessionInfo()), "sessionInfo")
