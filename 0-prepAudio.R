@@ -41,7 +41,7 @@ write.csv(query, "metadata.csv")
 
 # Play random file - setWavPlayer in macOS if "permission denied"
 setWavPlayer('/usr/bin/afplay')
-# play(sample(fnames, 1)) # esc to skip
+play(sample(fnames, 1)) # esc to skip
 
 # Encode species from fnames regex
 species <- str_extract(fnames, patt = "[A-Za-z]+-[a-z]+") %>%
@@ -79,20 +79,20 @@ train <- list(X = Xtrain, Y = targetTrain)
 val <- list(X = Xval, Y = targetVal)
 test <- list(X = Xtest, Y = targetTest)
 
-# Plot spectrogram from random training sample - range is 1-22.05 kHz
+# Plot spectrogram from random training sample - range is 0-22.05 kHz
 image(train$X[sample(dim(train$X)[1], 1),,,],
       xlab = "Time (s)",
       ylab = "Frequency (kHz)",
       axes = F)
 # Generate mel sequence from Hz points, standardize to plot
-freqs <- seq(1, 22.05, length.out = 6)
+freqs <- c(0, 1, 5, 15, 22.05)
 mels <- 2595 * log10(1 + (freqs*1e3) / 700) # https://en.wikipedia.org/wiki/Mel_scale
 mels <- mels - min(mels)
 mels <- mels / max(mels)
 
 axis(1, at = seq(0, 1, by = .2), labels = seq(0, 10, by = 2))
 axis(2, at = mels, las = 2,
-     labels = round(freqs, 1))
+     labels = round(freqs, 2))
 axis(3, labels = F); axis(4, labels = F)
 
 #### Save ####

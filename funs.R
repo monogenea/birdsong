@@ -9,10 +9,9 @@ melspec <- function(x, start, end){
                 extractWave(xunit = "time",
                             from = start, to = end)
         
-        # return log-spectrogram with 256 Mel bands,
-        # compression and high pass filter w/ > 1kHz
+        # return log-spectrogram with 256 Mel bands and compression
         sp <- melfcc(mp3, nbands = 256, usecmp = T,
-                     spec_out = T, minfreq = 1e3,
+                     spec_out = T,
                      hoptime = (end-start) / 256)$aspectrum
         
         # Median-based noise reduction
