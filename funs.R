@@ -3,7 +3,7 @@ library(abind)
 library(tuneR)
 library(parallel)
 
-# read, downsample, clip, MFCC, normalize and add noise
+# read, downsample, clip, mel spec, normalize and remove noise
 melspec <- function(x, start, end){
         mp3 <- readMP3(filename = x) %>% 
                 extractWave(xunit = "time",
@@ -36,7 +36,7 @@ melslice <- function(x, from, to){
 audioProcess <- function(files, limit = 10, ws = 10, stride = 2,
                          ncores = 8){
         windowSize <- seq(0, limit, by = stride)
-        # iterate and paralelize
+        # iterate and parallelise
         batches <- mclapply(windowSize, function(w){
                 # execute
                 melslice(files, from = w, to = w+ws)
