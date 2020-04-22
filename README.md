@@ -1,13 +1,13 @@
 # Audio classification in R
 
-Part of the tutorial to be published in my blog [poissonisfish](https://poissonisfish.com). Under development!
+Part of the tutorial from my blog [poissonisfish](https://poissonisfish.com/2020/04/05/audio-classification-in-r/).
 
 ## Instructions
 
-The MP3 files and an optional metadata CSV file are part of the [xeno-canto](https://www.xeno-canto.org) repository and hosted in the public Kaggle dataset [Bird songs from Europe (xeno-canto)](https://www.kaggle.com/monogenea/birdsongs-from-europe). Rights to use and share them are listed under the [Terms of Use](https://www.xeno-canto.org/about/terms) page from xeno-canto.
+The MP3 files and the optional metadata CSV file are part of the [xeno-canto](https://www.xeno-canto.org) collection and hosted in the public Kaggle dataset [Bird songs from Europe (xeno-canto)](https://www.kaggle.com/monogenea/birdsongs-from-europe). Rights to use and share them are listed under the [Terms of Use](https://www.xeno-canto.org/about/terms) page from xeno-canto.
 
 1. Download, unzip and move `mp3/` from the Kaggle dataset to your GitHub repo clone
-2. Make sure packages listed on top of `0-prepAudio.R` and `1-classAudio.R` are all installed
+2. Make sure all packages listed on top of `0-prepAudio.R` and `1-classAudio.R` are installed
 3. Execute `0-prepAudio.R`
 4. Restart R (recommended) and execute `1-classAudio.R`
 
@@ -15,11 +15,11 @@ The MP3 files and an optional metadata CSV file are part of the [xeno-canto](htt
 
 The analysis was conducted using an iMac Pro machine with AMD graphics cards and 16 threads. Considering Tensorflow GPU support is exclusive to NVIDIA®, the much less restrictive [plaidML](https://github.com/plaidml/plaidml) framework was used instead, deployed from a [Conda environment](https://www.anaconda.com) called `plaidml`. Alternative setups including TensorFlow backends (GPU or CPU-supported) can be easily accommodated.
 
-Also, consider changing the `parallel` and `ncores` argument values used in `0-prepAudio.R` as suits your own machine specs the best.
+Also, consider changing `ncores` in `0-prepAudio.R` as suits your machine specs the best.
 
 ### Reproducibility
 
-To further improve reproducibility, the Keras model object `model.h5` was included to validate the reported accuracy. It can also be use to make new predictions or train further. Additionally, I am including a `sessionInfo` file that carries detailed information of the package versions and hardware configuration I used.
+To further improve reproducibility, the Keras model object `model.h5` is included to validate the reported accuracy. Additionally, `sessionInfo` carries detailed information of the package versions and hardware configuration.
 
 Feel free to report any issues with reproducing the analysis described in the blog.
 
